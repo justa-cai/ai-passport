@@ -1,0 +1,2055 @@
+{
+ "generator": "tools/gen_pinyin_audio.py",
+ "date": "2026-10-26",
+ "voice": "zh-CN-XiaoxiaoNeural",
+ "teaching_audio": "https://123.5ikfc.com/pinyin",
+ "sources": {
+  "voc:*": "教学音频（声母呼读/韵母四声/整体认读四声，真人标准读音）",
+  "edge:*": "Edge TTS 例词（微软神经音色 zh-CN-XiaoxiaoNeural，喂汉字）"
+ },
+ "format": "ima-adpcm-4bit-16khz-mono",
+ "clip_count": 255,
+ "blob_bytes": 1309884,
+ "clips": [
+  {
+   "id": "a1",
+   "text": "ā",
+   "hanzi": "阿",
+   "source": "voc:ā",
+   "raw_s": 1.123,
+   "trimmed_s": 0.598
+  },
+  {
+   "id": "a2",
+   "text": "á",
+   "hanzi": null,
+   "source": "voc:á",
+   "raw_s": 1.202,
+   "trimmed_s": 0.619
+  },
+  {
+   "id": "a3",
+   "text": "ǎ",
+   "hanzi": null,
+   "source": "voc:ǎ",
+   "raw_s": 1.202,
+   "trimmed_s": 0.768
+  },
+  {
+   "id": "a4",
+   "text": "à",
+   "hanzi": null,
+   "source": "voc:à",
+   "raw_s": 1.045,
+   "trimmed_s": 0.438
+  },
+  {
+   "id": "ai1",
+   "text": "āi",
+   "hanzi": null,
+   "source": "voc:āi",
+   "raw_s": 0.862,
+   "trimmed_s": 0.59
+  },
+  {
+   "id": "ai2",
+   "text": "ái",
+   "hanzi": null,
+   "source": "voc:ái",
+   "raw_s": 1.019,
+   "trimmed_s": 0.67
+  },
+  {
+   "id": "ai3",
+   "text": "ǎi",
+   "hanzi": null,
+   "source": "voc:ǎi",
+   "raw_s": 1.019,
+   "trimmed_s": 0.767
+  },
+  {
+   "id": "ai4",
+   "text": "ài",
+   "hanzi": null,
+   "source": "voc:ài",
+   "raw_s": 0.888,
+   "trimmed_s": 0.569
+  },
+  {
+   "id": "an1",
+   "text": "ān",
+   "hanzi": null,
+   "source": "voc:ān",
+   "raw_s": 0.888,
+   "trimmed_s": 0.571
+  },
+  {
+   "id": "an2",
+   "text": "án",
+   "hanzi": null,
+   "source": "voc:án",
+   "raw_s": 0.862,
+   "trimmed_s": 0.643
+  },
+  {
+   "id": "an3",
+   "text": "ǎn",
+   "hanzi": null,
+   "source": "voc:ǎn",
+   "raw_s": 1.019,
+   "trimmed_s": 0.793
+  },
+  {
+   "id": "an4",
+   "text": "àn",
+   "hanzi": null,
+   "source": "voc:àn",
+   "raw_s": 0.731,
+   "trimmed_s": 0.558
+  },
+  {
+   "id": "ang1",
+   "text": "āng",
+   "hanzi": null,
+   "source": "voc:āng",
+   "raw_s": 0.81,
+   "trimmed_s": 0.614
+  },
+  {
+   "id": "ang2",
+   "text": "áng",
+   "hanzi": null,
+   "source": "voc:áng",
+   "raw_s": 0.967,
+   "trimmed_s": 0.748
+  },
+  {
+   "id": "ang3",
+   "text": "ǎng",
+   "hanzi": null,
+   "source": "voc:ǎng",
+   "raw_s": 0.967,
+   "trimmed_s": 0.887
+  },
+  {
+   "id": "ang4",
+   "text": "àng",
+   "hanzi": null,
+   "source": "voc:àng",
+   "raw_s": 0.731,
+   "trimmed_s": 0.565
+  },
+  {
+   "id": "ao1",
+   "text": "āo",
+   "hanzi": null,
+   "source": "voc:āo",
+   "raw_s": 0.94,
+   "trimmed_s": 0.724
+  },
+  {
+   "id": "ao2",
+   "text": "áo",
+   "hanzi": null,
+   "source": "voc:áo",
+   "raw_s": 0.967,
+   "trimmed_s": 0.785
+  },
+  {
+   "id": "ao3",
+   "text": "ǎo",
+   "hanzi": null,
+   "source": "voc:ǎo",
+   "raw_s": 1.202,
+   "trimmed_s": 0.889
+  },
+  {
+   "id": "ao4",
+   "text": "ào",
+   "hanzi": null,
+   "source": "voc:ào",
+   "raw_s": 0.81,
+   "trimmed_s": 0.604
+  },
+  {
+   "id": "ba4",
+   "text": "bà",
+   "hanzi": "爸",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.43
+  },
+  {
+   "id": "bai2",
+   "text": "bái",
+   "hanzi": "白",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.416
+  },
+  {
+   "id": "bei3",
+   "text": "běi",
+   "hanzi": "北",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.423
+  },
+  {
+   "id": "ben3",
+   "text": "běn",
+   "hanzi": "本",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.032,
+   "trimmed_s": 0.42
+  },
+  {
+   "id": "bo1",
+   "text": "bō",
+   "hanzi": "波",
+   "source": "voc:b",
+   "raw_s": 1.176,
+   "trimmed_s": 0.737
+  },
+  {
+   "id": "bu4",
+   "text": "bù",
+   "hanzi": "布",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.032,
+   "trimmed_s": 0.388
+  },
+  {
+   "id": "cai4",
+   "text": "cài",
+   "hanzi": "菜",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.104,
+   "trimmed_s": 0.447
+  },
+  {
+   "id": "cao3",
+   "text": "cǎo",
+   "hanzi": "草",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.416
+  },
+  {
+   "id": "cha2",
+   "text": "chá",
+   "hanzi": "茶",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.449
+  },
+  {
+   "id": "chi1",
+   "text": "chī",
+   "hanzi": null,
+   "source": "voc:ch",
+   "raw_s": 0.94,
+   "trimmed_s": 0.701
+  },
+  {
+   "id": "chi2",
+   "text": "chí",
+   "hanzi": null,
+   "source": "voc:chí",
+   "raw_s": 1.28,
+   "trimmed_s": 0.915
+  },
+  {
+   "id": "chi3",
+   "text": "chǐ",
+   "hanzi": "尺",
+   "source": "voc:chǐ",
+   "raw_s": 1.332,
+   "trimmed_s": 1.135
+  },
+  {
+   "id": "chi4",
+   "text": "chì",
+   "hanzi": null,
+   "source": "voc:chì",
+   "raw_s": 0.862,
+   "trimmed_s": 0.652
+  },
+  {
+   "id": "chong2",
+   "text": "chóng",
+   "hanzi": "虫",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.104,
+   "trimmed_s": 0.471
+  },
+  {
+   "id": "ci1",
+   "text": "cī",
+   "hanzi": null,
+   "source": "voc:c",
+   "raw_s": 1.176,
+   "trimmed_s": 0.676
+  },
+  {
+   "id": "ci2",
+   "text": "cí",
+   "hanzi": null,
+   "source": "voc:cí",
+   "raw_s": 1.332,
+   "trimmed_s": 0.818
+  },
+  {
+   "id": "ci3",
+   "text": "cǐ",
+   "hanzi": null,
+   "source": "voc:cǐ",
+   "raw_s": 1.437,
+   "trimmed_s": 1.094
+  },
+  {
+   "id": "ci4",
+   "text": "cì",
+   "hanzi": "刺",
+   "source": "voc:cì",
+   "raw_s": 0.967,
+   "trimmed_s": 0.554
+  },
+  {
+   "id": "cun1",
+   "text": "cūn",
+   "hanzi": "村",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.104,
+   "trimmed_s": 0.455
+  },
+  {
+   "id": "da4",
+   "text": "dà",
+   "hanzi": "大",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.417
+  },
+  {
+   "id": "de1",
+   "text": "dē",
+   "hanzi": null,
+   "source": "voc:d",
+   "raw_s": 1.071,
+   "trimmed_s": 0.625
+  },
+  {
+   "id": "deng1",
+   "text": "dēng",
+   "hanzi": "灯",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.032,
+   "trimmed_s": 0.388
+  },
+  {
+   "id": "di4",
+   "text": "dì",
+   "hanzi": "地",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.413
+  },
+  {
+   "id": "e1",
+   "text": "ē",
+   "hanzi": null,
+   "source": "voc:ē",
+   "raw_s": 1.097,
+   "trimmed_s": 0.578
+  },
+  {
+   "id": "e2",
+   "text": "é",
+   "hanzi": "鹅",
+   "source": "voc:é",
+   "raw_s": 1.385,
+   "trimmed_s": 0.853
+  },
+  {
+   "id": "e3",
+   "text": "ě",
+   "hanzi": null,
+   "source": "voc:ě",
+   "raw_s": 1.411,
+   "trimmed_s": 0.836
+  },
+  {
+   "id": "e4",
+   "text": "è",
+   "hanzi": "恶",
+   "source": "voc:è",
+   "raw_s": 1.097,
+   "trimmed_s": 0.624
+  },
+  {
+   "id": "ei1",
+   "text": "ēi",
+   "hanzi": null,
+   "source": "voc:ēi",
+   "raw_s": 1.019,
+   "trimmed_s": 0.625
+  },
+  {
+   "id": "ei2",
+   "text": "éi",
+   "hanzi": null,
+   "source": "voc:éi",
+   "raw_s": 0.862,
+   "trimmed_s": 0.66
+  },
+  {
+   "id": "ei3",
+   "text": "ěi",
+   "hanzi": null,
+   "source": "voc:ěi",
+   "raw_s": 0.94,
+   "trimmed_s": 0.793
+  },
+  {
+   "id": "ei4",
+   "text": "èi",
+   "hanzi": null,
+   "source": "voc:èi",
+   "raw_s": 0.705,
+   "trimmed_s": 0.532
+  },
+  {
+   "id": "en1",
+   "text": "ēn",
+   "hanzi": null,
+   "source": "voc:ēn",
+   "raw_s": 0.784,
+   "trimmed_s": 0.58
+  },
+  {
+   "id": "en2",
+   "text": "én",
+   "hanzi": null,
+   "source": "voc:én",
+   "raw_s": 0.914,
+   "trimmed_s": 0.616
+  },
+  {
+   "id": "en3",
+   "text": "ěn",
+   "hanzi": null,
+   "source": "voc:ěn",
+   "raw_s": 1.176,
+   "trimmed_s": 0.754
+  },
+  {
+   "id": "en4",
+   "text": "èn",
+   "hanzi": null,
+   "source": "voc:èn",
+   "raw_s": 0.836,
+   "trimmed_s": 0.557
+  },
+  {
+   "id": "eng1",
+   "text": "ēng",
+   "hanzi": null,
+   "source": "voc:ēng",
+   "raw_s": 0.94,
+   "trimmed_s": 0.666
+  },
+  {
+   "id": "eng2",
+   "text": "éng",
+   "hanzi": null,
+   "source": "voc:éng",
+   "raw_s": 0.888,
+   "trimmed_s": 0.728
+  },
+  {
+   "id": "eng3",
+   "text": "ěng",
+   "hanzi": null,
+   "source": "voc:ěng",
+   "raw_s": 1.071,
+   "trimmed_s": 0.869
+  },
+  {
+   "id": "eng4",
+   "text": "èng",
+   "hanzi": null,
+   "source": "voc:èng",
+   "raw_s": 0.653,
+   "trimmed_s": 0.548
+  },
+  {
+   "id": "er1",
+   "text": "ēr",
+   "hanzi": null,
+   "source": "voc:ēr",
+   "raw_s": 0.914,
+   "trimmed_s": 0.598
+  },
+  {
+   "id": "er2",
+   "text": "ér",
+   "hanzi": null,
+   "source": "voc:ér",
+   "raw_s": 0.993,
+   "trimmed_s": 0.767
+  },
+  {
+   "id": "er3",
+   "text": "ěr",
+   "hanzi": "耳",
+   "source": "voc:ěr",
+   "raw_s": 1.045,
+   "trimmed_s": 0.809
+  },
+  {
+   "id": "er4",
+   "text": "èr",
+   "hanzi": "二",
+   "source": "voc:èr",
+   "raw_s": 0.836,
+   "trimmed_s": 0.613
+  },
+  {
+   "id": "fa1",
+   "text": "fā",
+   "hanzi": "发",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.376
+  },
+  {
+   "id": "fei1",
+   "text": "fēi",
+   "hanzi": "飞",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.104,
+   "trimmed_s": 0.364
+  },
+  {
+   "id": "feng1",
+   "text": "fēng",
+   "hanzi": "风",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.104,
+   "trimmed_s": 0.367
+  },
+  {
+   "id": "fo1",
+   "text": "fō",
+   "hanzi": null,
+   "source": "voc:f",
+   "raw_s": 1.176,
+   "trimmed_s": 0.932
+  },
+  {
+   "id": "fo2",
+   "text": "fó",
+   "hanzi": "佛",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.104,
+   "trimmed_s": 0.436
+  },
+  {
+   "id": "gao1",
+   "text": "gāo",
+   "hanzi": "高",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.406
+  },
+  {
+   "id": "ge1",
+   "text": "gē",
+   "hanzi": "哥",
+   "source": "voc:g",
+   "raw_s": 0.967,
+   "trimmed_s": 0.721
+  },
+  {
+   "id": "gou3",
+   "text": "gǒu",
+   "hanzi": "狗",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.032,
+   "trimmed_s": 0.385
+  },
+  {
+   "id": "gu3",
+   "text": "gǔ",
+   "hanzi": "古",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.42
+  },
+  {
+   "id": "guo3",
+   "text": "guǒ",
+   "hanzi": "果",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.429
+  },
+  {
+   "id": "he1",
+   "text": "hē",
+   "hanzi": null,
+   "source": "voc:h",
+   "raw_s": 1.149,
+   "trimmed_s": 0.784
+  },
+  {
+   "id": "he2",
+   "text": "hé",
+   "hanzi": "河",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.104,
+   "trimmed_s": 0.45
+  },
+  {
+   "id": "hua1",
+   "text": "huā",
+   "hanzi": "花",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.407
+  },
+  {
+   "id": "hua4",
+   "text": "huà",
+   "hanzi": "画",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.409
+  },
+  {
+   "id": "i1",
+   "text": "ī",
+   "hanzi": null,
+   "source": "voc:ī",
+   "raw_s": 1.202,
+   "trimmed_s": 0.648
+  },
+  {
+   "id": "i2",
+   "text": "í",
+   "hanzi": null,
+   "source": "voc:í",
+   "raw_s": 1.254,
+   "trimmed_s": 0.901
+  },
+  {
+   "id": "i3",
+   "text": "ǐ",
+   "hanzi": null,
+   "source": "voc:ǐ",
+   "raw_s": 1.437,
+   "trimmed_s": 0.934
+  },
+  {
+   "id": "i4",
+   "text": "ì",
+   "hanzi": null,
+   "source": "voc:ì",
+   "raw_s": 1.123,
+   "trimmed_s": 0.57
+  },
+  {
+   "id": "ie1",
+   "text": "iē",
+   "hanzi": null,
+   "source": "voc:iē",
+   "raw_s": 1.045,
+   "trimmed_s": 0.691
+  },
+  {
+   "id": "ie2",
+   "text": "ié",
+   "hanzi": null,
+   "source": "voc:ié",
+   "raw_s": 1.045,
+   "trimmed_s": 0.883
+  },
+  {
+   "id": "ie3",
+   "text": "iě",
+   "hanzi": null,
+   "source": "voc:iě",
+   "raw_s": 1.28,
+   "trimmed_s": 0.961
+  },
+  {
+   "id": "ie4",
+   "text": "iè",
+   "hanzi": null,
+   "source": "voc:iè",
+   "raw_s": 0.888,
+   "trimmed_s": 0.6
+  },
+  {
+   "id": "in1",
+   "text": "īn",
+   "hanzi": null,
+   "source": "voc:īn",
+   "raw_s": 0.967,
+   "trimmed_s": 0.719
+  },
+  {
+   "id": "in2",
+   "text": "ín",
+   "hanzi": null,
+   "source": "voc:ín",
+   "raw_s": 1.071,
+   "trimmed_s": 0.778
+  },
+  {
+   "id": "in3",
+   "text": "ǐn",
+   "hanzi": null,
+   "source": "voc:ǐn",
+   "raw_s": 1.437,
+   "trimmed_s": 0.956
+  },
+  {
+   "id": "in4",
+   "text": "ìn",
+   "hanzi": null,
+   "source": "voc:ìn",
+   "raw_s": 0.758,
+   "trimmed_s": 0.517
+  },
+  {
+   "id": "ing1",
+   "text": "īng",
+   "hanzi": null,
+   "source": "voc:īng",
+   "raw_s": 1.149,
+   "trimmed_s": 0.794
+  },
+  {
+   "id": "ing2",
+   "text": "íng",
+   "hanzi": null,
+   "source": "voc:íng",
+   "raw_s": 1.019,
+   "trimmed_s": 0.821
+  },
+  {
+   "id": "ing3",
+   "text": "ǐng",
+   "hanzi": null,
+   "source": "voc:ǐng",
+   "raw_s": 1.306,
+   "trimmed_s": 1.071
+  },
+  {
+   "id": "ing4",
+   "text": "ìng",
+   "hanzi": null,
+   "source": "voc:ìng",
+   "raw_s": 0.758,
+   "trimmed_s": 0.588
+  },
+  {
+   "id": "iu1",
+   "text": "iū",
+   "hanzi": null,
+   "source": "voc:iū",
+   "raw_s": 1.071,
+   "trimmed_s": 0.852
+  },
+  {
+   "id": "iu2",
+   "text": "iú",
+   "hanzi": null,
+   "source": "voc:iú",
+   "raw_s": 1.123,
+   "trimmed_s": 0.858
+  },
+  {
+   "id": "iu3",
+   "text": "iǔ",
+   "hanzi": null,
+   "source": "voc:iǔ",
+   "raw_s": 1.071,
+   "trimmed_s": 0.913
+  },
+  {
+   "id": "iu4",
+   "text": "iù",
+   "hanzi": null,
+   "source": "voc:iù",
+   "raw_s": 0.94,
+   "trimmed_s": 0.641
+  },
+  {
+   "id": "ji1",
+   "text": "jī",
+   "hanzi": "鸡",
+   "source": "voc:j",
+   "raw_s": 1.071,
+   "trimmed_s": 0.742
+  },
+  {
+   "id": "jia1",
+   "text": "jiā",
+   "hanzi": "家",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.414
+  },
+  {
+   "id": "jie3",
+   "text": "jiě",
+   "hanzi": "姐",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.423
+  },
+  {
+   "id": "ju2",
+   "text": "jú",
+   "hanzi": "菊",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.429
+  },
+  {
+   "id": "ke1",
+   "text": "kē",
+   "hanzi": null,
+   "source": "voc:k",
+   "raw_s": 1.071,
+   "trimmed_s": 0.683
+  },
+  {
+   "id": "ke4",
+   "text": "kè",
+   "hanzi": "课",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.442
+  },
+  {
+   "id": "ku1",
+   "text": "kū",
+   "hanzi": "哭",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.439
+  },
+  {
+   "id": "la1",
+   "text": "lā",
+   "hanzi": "拉",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.432
+  },
+  {
+   "id": "lai2",
+   "text": "lái",
+   "hanzi": "来",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.413
+  },
+  {
+   "id": "lan2",
+   "text": "lán",
+   "hanzi": "蓝",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.032,
+   "trimmed_s": 0.417
+  },
+  {
+   "id": "le1",
+   "text": "lē",
+   "hanzi": null,
+   "source": "voc:l",
+   "raw_s": 0.967,
+   "trimmed_s": 0.692
+  },
+  {
+   "id": "le4",
+   "text": "lè",
+   "hanzi": "乐",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.439
+  },
+  {
+   "id": "lei2",
+   "text": "léi",
+   "hanzi": "雷",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.032,
+   "trimmed_s": 0.409
+  },
+  {
+   "id": "lin2",
+   "text": "lín",
+   "hanzi": "林",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.426
+  },
+  {
+   "id": "liu4",
+   "text": "liù",
+   "hanzi": "六",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.427
+  },
+  {
+   "id": "long2",
+   "text": "lóng",
+   "hanzi": "龙",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.032,
+   "trimmed_s": 0.412
+  },
+  {
+   "id": "lou2",
+   "text": "lóu",
+   "hanzi": "楼",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.032,
+   "trimmed_s": 0.417
+  },
+  {
+   "id": "lu4",
+   "text": "lù",
+   "hanzi": "路",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.032,
+   "trimmed_s": 0.393
+  },
+  {
+   "id": "ma1",
+   "text": "mā",
+   "hanzi": "妈",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.008,
+   "trimmed_s": 0.394
+  },
+  {
+   "id": "ma3",
+   "text": "mǎ",
+   "hanzi": "马",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.008,
+   "trimmed_s": 0.4
+  },
+  {
+   "id": "mao1",
+   "text": "māo",
+   "hanzi": "猫",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.032,
+   "trimmed_s": 0.403
+  },
+  {
+   "id": "mei4",
+   "text": "mèi",
+   "hanzi": "妹",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.424
+  },
+  {
+   "id": "men2",
+   "text": "mén",
+   "hanzi": "门",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.008,
+   "trimmed_s": 0.404
+  },
+  {
+   "id": "mi3",
+   "text": "mǐ",
+   "hanzi": "米",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.008,
+   "trimmed_s": 0.403
+  },
+  {
+   "id": "ming2",
+   "text": "míng",
+   "hanzi": "明",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.008,
+   "trimmed_s": 0.412
+  },
+  {
+   "id": "mo1",
+   "text": "mō",
+   "hanzi": null,
+   "source": "voc:m",
+   "raw_s": 1.097,
+   "trimmed_s": 0.769
+  },
+  {
+   "id": "mu4",
+   "text": "mù",
+   "hanzi": "木",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.032,
+   "trimmed_s": 0.412
+  },
+  {
+   "id": "na2",
+   "text": "ná",
+   "hanzi": "拿",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.428
+  },
+  {
+   "id": "ne1",
+   "text": "nē",
+   "hanzi": null,
+   "source": "voc:n",
+   "raw_s": 1.045,
+   "trimmed_s": 0.744
+  },
+  {
+   "id": "ni3",
+   "text": "nǐ",
+   "hanzi": "你",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.008,
+   "trimmed_s": 0.396
+  },
+  {
+   "id": "niu2",
+   "text": "niú",
+   "hanzi": "牛",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.032,
+   "trimmed_s": 0.43
+  },
+  {
+   "id": "o1",
+   "text": "ō",
+   "hanzi": null,
+   "source": "voc:ō",
+   "raw_s": 0.719,
+   "trimmed_s": 0.671
+  },
+  {
+   "id": "o2",
+   "text": "ó",
+   "hanzi": "哦",
+   "source": "voc:ó",
+   "raw_s": 0.575,
+   "trimmed_s": 0.484
+  },
+  {
+   "id": "o3",
+   "text": "ǒ",
+   "hanzi": null,
+   "source": "voc:ǒ",
+   "raw_s": 0.73,
+   "trimmed_s": 0.662
+  },
+  {
+   "id": "o4",
+   "text": "ò",
+   "hanzi": null,
+   "source": "voc:ò",
+   "raw_s": 0.542,
+   "trimmed_s": 0.425
+  },
+  {
+   "id": "ong1",
+   "text": "ōng",
+   "hanzi": null,
+   "source": "voc:ōng",
+   "raw_s": 0.679,
+   "trimmed_s": 0.669
+  },
+  {
+   "id": "ong2",
+   "text": "óng",
+   "hanzi": null,
+   "source": "voc:óng",
+   "raw_s": 0.604,
+   "trimmed_s": 0.604
+  },
+  {
+   "id": "ong3",
+   "text": "ǒng",
+   "hanzi": null,
+   "source": "voc:ǒng",
+   "raw_s": 0.828,
+   "trimmed_s": 0.161
+  },
+  {
+   "id": "ong4",
+   "text": "òng",
+   "hanzi": null,
+   "source": "voc:òng",
+   "raw_s": 0.449,
+   "trimmed_s": 0.408
+  },
+  {
+   "id": "ou1",
+   "text": "ōu",
+   "hanzi": null,
+   "source": "voc:ōu",
+   "raw_s": 0.914,
+   "trimmed_s": 0.635
+  },
+  {
+   "id": "ou2",
+   "text": "óu",
+   "hanzi": null,
+   "source": "voc:óu",
+   "raw_s": 0.914,
+   "trimmed_s": 0.692
+  },
+  {
+   "id": "ou3",
+   "text": "ǒu",
+   "hanzi": null,
+   "source": "voc:ǒu",
+   "raw_s": 1.097,
+   "trimmed_s": 0.815
+  },
+  {
+   "id": "ou4",
+   "text": "òu",
+   "hanzi": null,
+   "source": "voc:òu",
+   "raw_s": 0.862,
+   "trimmed_s": 0.632
+  },
+  {
+   "id": "pao3",
+   "text": "pǎo",
+   "hanzi": "跑",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.032,
+   "trimmed_s": 0.398
+  },
+  {
+   "id": "po1",
+   "text": "pō",
+   "hanzi": null,
+   "source": "voc:p",
+   "raw_s": 0.967,
+   "trimmed_s": 0.814
+  },
+  {
+   "id": "po2",
+   "text": "pó",
+   "hanzi": "婆",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.435
+  },
+  {
+   "id": "qi1",
+   "text": "qī",
+   "hanzi": "七",
+   "source": "voc:q",
+   "raw_s": 1.071,
+   "trimmed_s": 0.763
+  },
+  {
+   "id": "qu4",
+   "text": "qù",
+   "hanzi": "去",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.104,
+   "trimmed_s": 0.457
+  },
+  {
+   "id": "qun2",
+   "text": "qún",
+   "hanzi": "裙",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.468
+  },
+  {
+   "id": "re4",
+   "text": "rè",
+   "hanzi": "热",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.442
+  },
+  {
+   "id": "ri1",
+   "text": "rī",
+   "hanzi": null,
+   "source": "voc:rī",
+   "raw_s": 0.993,
+   "trimmed_s": 0.753
+  },
+  {
+   "id": "ri2",
+   "text": "rí",
+   "hanzi": null,
+   "source": "voc:rí",
+   "raw_s": 1.176,
+   "trimmed_s": 0.848
+  },
+  {
+   "id": "ri3",
+   "text": "rǐ",
+   "hanzi": null,
+   "source": "voc:rǐ",
+   "raw_s": 1.228,
+   "trimmed_s": 1.036
+  },
+  {
+   "id": "ri4",
+   "text": "rì",
+   "hanzi": "日",
+   "source": "voc:r",
+   "raw_s": 0.993,
+   "trimmed_s": 0.753
+  },
+  {
+   "id": "rou4",
+   "text": "ròu",
+   "hanzi": "肉",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.414
+  },
+  {
+   "id": "sha1",
+   "text": "shā",
+   "hanzi": "沙",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.128,
+   "trimmed_s": 0.493
+  },
+  {
+   "id": "shan1",
+   "text": "shān",
+   "hanzi": "山",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.152,
+   "trimmed_s": 0.488
+  },
+  {
+   "id": "shang4",
+   "text": "shàng",
+   "hanzi": "上",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.128,
+   "trimmed_s": 0.481
+  },
+  {
+   "id": "shi1",
+   "text": "shī",
+   "hanzi": null,
+   "source": "voc:sh",
+   "raw_s": 1.045,
+   "trimmed_s": 0.824
+  },
+  {
+   "id": "shi2",
+   "text": "shí",
+   "hanzi": "十",
+   "source": "voc:shí",
+   "raw_s": 1.176,
+   "trimmed_s": 0.973
+  },
+  {
+   "id": "shi3",
+   "text": "shǐ",
+   "hanzi": null,
+   "source": "voc:shǐ",
+   "raw_s": 1.332,
+   "trimmed_s": 1.117
+  },
+  {
+   "id": "shi4",
+   "text": "shì",
+   "hanzi": null,
+   "source": "voc:shì",
+   "raw_s": 1.019,
+   "trimmed_s": 0.672
+  },
+  {
+   "id": "shui3",
+   "text": "shuǐ",
+   "hanzi": "水",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.128,
+   "trimmed_s": 0.495
+  },
+  {
+   "id": "si1",
+   "text": "sī",
+   "hanzi": "丝",
+   "source": "voc:s",
+   "raw_s": 1.045,
+   "trimmed_s": 0.758
+  },
+  {
+   "id": "si2",
+   "text": "sí",
+   "hanzi": null,
+   "source": "voc:sí",
+   "raw_s": 1.149,
+   "trimmed_s": 0.995
+  },
+  {
+   "id": "si3",
+   "text": "sǐ",
+   "hanzi": null,
+   "source": "voc:sǐ",
+   "raw_s": 1.332,
+   "trimmed_s": 1.053
+  },
+  {
+   "id": "si4",
+   "text": "sì",
+   "hanzi": null,
+   "source": "voc:sì",
+   "raw_s": 0.862,
+   "trimmed_s": 0.683
+  },
+  {
+   "id": "song1",
+   "text": "sōng",
+   "hanzi": "松",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.104,
+   "trimmed_s": 0.468
+  },
+  {
+   "id": "su1",
+   "text": "sū",
+   "hanzi": "苏",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.128,
+   "trimmed_s": 0.494
+  },
+  {
+   "id": "ta1",
+   "text": "tā",
+   "hanzi": "他",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.032,
+   "trimmed_s": 0.403
+  },
+  {
+   "id": "tao2",
+   "text": "táo",
+   "hanzi": "桃",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.032,
+   "trimmed_s": 0.412
+  },
+  {
+   "id": "te1",
+   "text": "tē",
+   "hanzi": null,
+   "source": "voc:t",
+   "raw_s": 1.045,
+   "trimmed_s": 0.781
+  },
+  {
+   "id": "te4",
+   "text": "tè",
+   "hanzi": "特",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.442
+  },
+  {
+   "id": "tou2",
+   "text": "tóu",
+   "hanzi": "头",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.425
+  },
+  {
+   "id": "tu4",
+   "text": "tù",
+   "hanzi": "兔",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.439
+  },
+  {
+   "id": "u1",
+   "text": "ū",
+   "hanzi": null,
+   "source": "voc:ū",
+   "raw_s": 1.149,
+   "trimmed_s": 0.638
+  },
+  {
+   "id": "u2",
+   "text": "ú",
+   "hanzi": null,
+   "source": "voc:ú",
+   "raw_s": 1.28,
+   "trimmed_s": 0.762
+  },
+  {
+   "id": "u3",
+   "text": "ǔ",
+   "hanzi": null,
+   "source": "voc:ǔ",
+   "raw_s": 1.306,
+   "trimmed_s": 0.929
+  },
+  {
+   "id": "u4",
+   "text": "ù",
+   "hanzi": null,
+   "source": "voc:ù",
+   "raw_s": 1.123,
+   "trimmed_s": 0.609
+  },
+  {
+   "id": "ui1",
+   "text": "uī",
+   "hanzi": null,
+   "source": "voc:uī",
+   "raw_s": 0.94,
+   "trimmed_s": 0.715
+  },
+  {
+   "id": "ui2",
+   "text": "uí",
+   "hanzi": null,
+   "source": "voc:uí",
+   "raw_s": 0.967,
+   "trimmed_s": 0.785
+  },
+  {
+   "id": "ui3",
+   "text": "uǐ",
+   "hanzi": null,
+   "source": "voc:uǐ",
+   "raw_s": 1.045,
+   "trimmed_s": 0.877
+  },
+  {
+   "id": "ui4",
+   "text": "uì",
+   "hanzi": null,
+   "source": "voc:uì",
+   "raw_s": 0.836,
+   "trimmed_s": 0.551
+  },
+  {
+   "id": "un1",
+   "text": "ūn",
+   "hanzi": null,
+   "source": "voc:ūn",
+   "raw_s": 0.862,
+   "trimmed_s": 0.648
+  },
+  {
+   "id": "un2",
+   "text": "ún",
+   "hanzi": null,
+   "source": "voc:ún",
+   "raw_s": 0.993,
+   "trimmed_s": 0.68
+  },
+  {
+   "id": "un3",
+   "text": "ǔn",
+   "hanzi": null,
+   "source": "voc:ǔn",
+   "raw_s": 0.94,
+   "trimmed_s": 0.772
+  },
+  {
+   "id": "un4",
+   "text": "ùn",
+   "hanzi": null,
+   "source": "voc:ùn",
+   "raw_s": 0.914,
+   "trimmed_s": 0.521
+  },
+  {
+   "id": "v1",
+   "text": "yū",
+   "hanzi": null,
+   "source": "voc:ǖ",
+   "raw_s": 1.123,
+   "trimmed_s": 0.638
+  },
+  {
+   "id": "v2",
+   "text": "yú",
+   "hanzi": null,
+   "source": "voc:ǘ",
+   "raw_s": 1.254,
+   "trimmed_s": 1.104
+  },
+  {
+   "id": "v3",
+   "text": "yǔ",
+   "hanzi": null,
+   "source": "voc:ǚ",
+   "raw_s": 1.463,
+   "trimmed_s": 0.887
+  },
+  {
+   "id": "v4",
+   "text": "yù",
+   "hanzi": null,
+   "source": "voc:ǜ",
+   "raw_s": 1.045,
+   "trimmed_s": 0.535
+  },
+  {
+   "id": "ve1",
+   "text": "yuē",
+   "hanzi": null,
+   "source": "voc:üē",
+   "raw_s": 0.94,
+   "trimmed_s": 0.674
+  },
+  {
+   "id": "ve2",
+   "text": "yué",
+   "hanzi": null,
+   "source": "voc:üé",
+   "raw_s": 1.019,
+   "trimmed_s": 0.85
+  },
+  {
+   "id": "ve3",
+   "text": "yuě",
+   "hanzi": null,
+   "source": "voc:üě",
+   "raw_s": 1.228,
+   "trimmed_s": 0.888
+  },
+  {
+   "id": "ve4",
+   "text": "yuè",
+   "hanzi": null,
+   "source": "voc:üè",
+   "raw_s": 0.653,
+   "trimmed_s": 0.579
+  },
+  {
+   "id": "vn1",
+   "text": "yūn",
+   "hanzi": null,
+   "source": "voc:ǖn",
+   "raw_s": 0.993,
+   "trimmed_s": 0.79
+  },
+  {
+   "id": "vn2",
+   "text": "yún",
+   "hanzi": null,
+   "source": "voc:ǘn",
+   "raw_s": 1.254,
+   "trimmed_s": 0.817
+  },
+  {
+   "id": "vn3",
+   "text": "yǔn",
+   "hanzi": null,
+   "source": "voc:ǚn",
+   "raw_s": 1.358,
+   "trimmed_s": 0.949
+  },
+  {
+   "id": "vn4",
+   "text": "yùn",
+   "hanzi": null,
+   "source": "voc:ǜn",
+   "raw_s": 0.758,
+   "trimmed_s": 0.523
+  },
+  {
+   "id": "wa1",
+   "text": "wā",
+   "hanzi": "蛙",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.104,
+   "trimmed_s": 0.462
+  },
+  {
+   "id": "wu1",
+   "text": "wū",
+   "hanzi": "屋",
+   "source": "voc:w",
+   "raw_s": 0.888,
+   "trimmed_s": 0.713
+  },
+  {
+   "id": "wu2",
+   "text": "wú",
+   "hanzi": null,
+   "source": "voc:wú",
+   "raw_s": 1.045,
+   "trimmed_s": 0.856
+  },
+  {
+   "id": "wu3",
+   "text": "wǔ",
+   "hanzi": "五",
+   "source": "voc:wǔ",
+   "raw_s": 1.228,
+   "trimmed_s": 0.941
+  },
+  {
+   "id": "wu4",
+   "text": "wù",
+   "hanzi": null,
+   "source": "voc:wù",
+   "raw_s": 0.784,
+   "trimmed_s": 0.615
+  },
+  {
+   "id": "xi1",
+   "text": "xī",
+   "hanzi": "西",
+   "source": "voc:x",
+   "raw_s": 1.176,
+   "trimmed_s": 0.825
+  },
+  {
+   "id": "xia1",
+   "text": "xiā",
+   "hanzi": "虾",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.104,
+   "trimmed_s": 0.466
+  },
+  {
+   "id": "xia4",
+   "text": "xià",
+   "hanzi": "下",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.128,
+   "trimmed_s": 0.469
+  },
+  {
+   "id": "xie2",
+   "text": "xié",
+   "hanzi": "鞋",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.104,
+   "trimmed_s": 0.458
+  },
+  {
+   "id": "xin1",
+   "text": "xīn",
+   "hanzi": "心",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.104,
+   "trimmed_s": 0.485
+  },
+  {
+   "id": "xing1",
+   "text": "xīng",
+   "hanzi": "星",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.128,
+   "trimmed_s": 0.509
+  },
+  {
+   "id": "xue3",
+   "text": "xuě",
+   "hanzi": "雪",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.152,
+   "trimmed_s": 0.517
+  },
+  {
+   "id": "ya1",
+   "text": "yā",
+   "hanzi": "鸭",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.439
+  },
+  {
+   "id": "yang2",
+   "text": "yáng",
+   "hanzi": "羊",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.422
+  },
+  {
+   "id": "ye1",
+   "text": "yē",
+   "hanzi": null,
+   "source": "voc:yē",
+   "raw_s": 1.045,
+   "trimmed_s": 0.807
+  },
+  {
+   "id": "ye2",
+   "text": "yé",
+   "hanzi": null,
+   "source": "voc:yé",
+   "raw_s": 1.176,
+   "trimmed_s": 0.807
+  },
+  {
+   "id": "ye3",
+   "text": "yě",
+   "hanzi": null,
+   "source": "voc:yě",
+   "raw_s": 1.306,
+   "trimmed_s": 0.888
+  },
+  {
+   "id": "ye4",
+   "text": "yè",
+   "hanzi": "叶",
+   "source": "voc:yè",
+   "raw_s": 0.993,
+   "trimmed_s": 0.559
+  },
+  {
+   "id": "yi1",
+   "text": "yī",
+   "hanzi": "衣",
+   "source": "voc:y",
+   "raw_s": 1.097,
+   "trimmed_s": 0.785
+  },
+  {
+   "id": "yi2",
+   "text": "yí",
+   "hanzi": null,
+   "source": "voc:yí",
+   "raw_s": 1.019,
+   "trimmed_s": 0.783
+  },
+  {
+   "id": "yi3",
+   "text": "yǐ",
+   "hanzi": null,
+   "source": "voc:yǐ",
+   "raw_s": 1.149,
+   "trimmed_s": 0.94
+  },
+  {
+   "id": "yi4",
+   "text": "yì",
+   "hanzi": null,
+   "source": "voc:yì",
+   "raw_s": 0.888,
+   "trimmed_s": 0.621
+  },
+  {
+   "id": "yin1",
+   "text": "yīn",
+   "hanzi": null,
+   "source": "voc:yīn",
+   "raw_s": 0.731,
+   "trimmed_s": 0.614
+  },
+  {
+   "id": "yin2",
+   "text": "yín",
+   "hanzi": "银",
+   "source": "voc:yín",
+   "raw_s": 1.097,
+   "trimmed_s": 0.794
+  },
+  {
+   "id": "yin3",
+   "text": "yǐn",
+   "hanzi": null,
+   "source": "voc:yǐn",
+   "raw_s": 1.254,
+   "trimmed_s": 0.919
+  },
+  {
+   "id": "yin4",
+   "text": "yìn",
+   "hanzi": null,
+   "source": "voc:yìn",
+   "raw_s": 0.731,
+   "trimmed_s": 0.578
+  },
+  {
+   "id": "ying1",
+   "text": "yīng",
+   "hanzi": "鹰",
+   "source": "voc:yīng",
+   "raw_s": 1.045,
+   "trimmed_s": 0.812
+  },
+  {
+   "id": "ying2",
+   "text": "yíng",
+   "hanzi": null,
+   "source": "voc:yíng",
+   "raw_s": 0.967,
+   "trimmed_s": 0.819
+  },
+  {
+   "id": "ying3",
+   "text": "yǐng",
+   "hanzi": null,
+   "source": "voc:yǐng",
+   "raw_s": 1.202,
+   "trimmed_s": 0.96
+  },
+  {
+   "id": "ying4",
+   "text": "yìng",
+   "hanzi": null,
+   "source": "voc:yìng",
+   "raw_s": 0.888,
+   "trimmed_s": 0.564
+  },
+  {
+   "id": "yu1",
+   "text": "yū",
+   "hanzi": null,
+   "source": "voc:yū",
+   "raw_s": 0.862,
+   "trimmed_s": 0.66
+  },
+  {
+   "id": "yu2",
+   "text": "yú",
+   "hanzi": "鱼",
+   "source": "voc:yú",
+   "raw_s": 1.28,
+   "trimmed_s": 0.83
+  },
+  {
+   "id": "yu3",
+   "text": "yǔ",
+   "hanzi": "雨",
+   "source": "voc:yǔ",
+   "raw_s": 1.385,
+   "trimmed_s": 1.007
+  },
+  {
+   "id": "yu4",
+   "text": "yù",
+   "hanzi": null,
+   "source": "voc:yù",
+   "raw_s": 0.784,
+   "trimmed_s": 0.552
+  },
+  {
+   "id": "yuan1",
+   "text": "yuān",
+   "hanzi": null,
+   "source": "voc:yuān",
+   "raw_s": 1.254,
+   "trimmed_s": 0.765
+  },
+  {
+   "id": "yuan2",
+   "text": "yuán",
+   "hanzi": "圆",
+   "source": "voc:yuán",
+   "raw_s": 1.202,
+   "trimmed_s": 0.878
+  },
+  {
+   "id": "yuan3",
+   "text": "yuǎn",
+   "hanzi": null,
+   "source": "voc:yuǎn",
+   "raw_s": 1.149,
+   "trimmed_s": 0.915
+  },
+  {
+   "id": "yuan4",
+   "text": "yuàn",
+   "hanzi": null,
+   "source": "voc:yuàn",
+   "raw_s": 0.914,
+   "trimmed_s": 0.687
+  },
+  {
+   "id": "yue1",
+   "text": "yuē",
+   "hanzi": null,
+   "source": "voc:yuē",
+   "raw_s": 0.862,
+   "trimmed_s": 0.682
+  },
+  {
+   "id": "yue2",
+   "text": "yué",
+   "hanzi": null,
+   "source": "voc:yué",
+   "raw_s": 1.071,
+   "trimmed_s": 0.867
+  },
+  {
+   "id": "yue3",
+   "text": "yuě",
+   "hanzi": null,
+   "source": "voc:yuě",
+   "raw_s": 1.176,
+   "trimmed_s": 0.856
+  },
+  {
+   "id": "yue4",
+   "text": "yuè",
+   "hanzi": "月",
+   "source": "voc:yuè",
+   "raw_s": 0.888,
+   "trimmed_s": 0.571
+  },
+  {
+   "id": "yun1",
+   "text": "yūn",
+   "hanzi": null,
+   "source": "voc:yūn",
+   "raw_s": 0.993,
+   "trimmed_s": 0.746
+  },
+  {
+   "id": "yun2",
+   "text": "yún",
+   "hanzi": "云",
+   "source": "voc:yún",
+   "raw_s": 1.097,
+   "trimmed_s": 0.822
+  },
+  {
+   "id": "yun3",
+   "text": "yǔn",
+   "hanzi": null,
+   "source": "voc:yǔn",
+   "raw_s": 1.123,
+   "trimmed_s": 0.927
+  },
+  {
+   "id": "yun4",
+   "text": "yùn",
+   "hanzi": null,
+   "source": "voc:yùn",
+   "raw_s": 0.862,
+   "trimmed_s": 0.582
+  },
+  {
+   "id": "zao3",
+   "text": "zǎo",
+   "hanzi": "早",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.032,
+   "trimmed_s": 0.379
+  },
+  {
+   "id": "zhi1",
+   "text": "zhī",
+   "hanzi": null,
+   "source": "voc:zh",
+   "raw_s": 1.045,
+   "trimmed_s": 0.72
+  },
+  {
+   "id": "zhi2",
+   "text": "zhí",
+   "hanzi": null,
+   "source": "voc:zhí",
+   "raw_s": 1.045,
+   "trimmed_s": 0.748
+  },
+  {
+   "id": "zhi3",
+   "text": "zhǐ",
+   "hanzi": "纸",
+   "source": "voc:zhǐ",
+   "raw_s": 1.306,
+   "trimmed_s": 0.996
+  },
+  {
+   "id": "zhi4",
+   "text": "zhì",
+   "hanzi": null,
+   "source": "voc:zhì",
+   "raw_s": 0.784,
+   "trimmed_s": 0.554
+  },
+  {
+   "id": "zhong1",
+   "text": "zhōng",
+   "hanzi": "中",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.415
+  },
+  {
+   "id": "zhu2",
+   "text": "zhú",
+   "hanzi": "竹",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.425
+  },
+  {
+   "id": "zi1",
+   "text": "zī",
+   "hanzi": null,
+   "source": "voc:z",
+   "raw_s": 1.097,
+   "trimmed_s": 0.83
+  },
+  {
+   "id": "zi2",
+   "text": "zí",
+   "hanzi": null,
+   "source": "voc:zí",
+   "raw_s": 1.019,
+   "trimmed_s": 0.74
+  },
+  {
+   "id": "zi3",
+   "text": "zǐ",
+   "hanzi": null,
+   "source": "voc:zǐ",
+   "raw_s": 1.332,
+   "trimmed_s": 1.035
+  },
+  {
+   "id": "zi4",
+   "text": "zì",
+   "hanzi": "字",
+   "source": "voc:zì",
+   "raw_s": 0.862,
+   "trimmed_s": 0.569
+  },
+  {
+   "id": "zui3",
+   "text": "zuǐ",
+   "hanzi": "嘴",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.056,
+   "trimmed_s": 0.422
+  },
+  {
+   "id": "zuo4",
+   "text": "zuò",
+   "hanzi": "座",
+   "source": "edge:zh-CN-XiaoxiaoNeural",
+   "raw_s": 1.08,
+   "trimmed_s": 0.418
+  }
+ ]
+}

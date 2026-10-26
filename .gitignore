@@ -11,3 +11,7 @@ managed_components/
 /.agents/skills/passport-build
 /.agents/skills/passport-device-test
 /.agents/skills/passport-debug
+
+# 开发期临时产物（TTS 缓存、主机测试、增量构建）
+tmp/
+__pycache__/

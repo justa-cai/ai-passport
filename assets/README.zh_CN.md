@@ -15,6 +15,24 @@
 - 添加字库前评估 Flash 与内部 RAM 影响；ESP32-C3 无 PSRAM。
 - 不提交许可不允许分发的字库。
 
+### 拼音应用字体子集（分支 `feature/pinyin-cards`）
+
+| 文件 | 内容与来源 |
+| --- | --- |
+| [`fonts/pinyin_charset.txt`](fonts/pinyin_charset.txt) | 字符清单（403 码点）：`main/*.[ch]` 全部字符串字面量（NFC）∪ ASCII ∪ 36 个 NFC 带调元音与 `ü` ∪ 界面符号。既是生成器输出，也是覆盖门禁输入。 |
+| `fonts/pinyin_font_16.c` / `pinyin_font_22.c` / `pinyin_font_44.c` | 全清单子集，16px（Regular）/ 22px（Medium）/ 44px（Medium），用于提示行、正文、测验汉字与星标。 |
+| `fonts/pinyin_font_56.c` | 133 码点拉丁子集（ASCII + 带调元音 + 符号），拼音大字专用；刻意不接兜底字体以避免基线错位。 |
+
+来源字体：**Noto Sans CJK SC**（即思源黑体，SIL OFL 1.1），取自构建机
+`/usr/share/fonts/opentype/noto/NotoSansCJK-{Regular,Medium}.ttc`；`.ttc`
+不入库。由仓库内生成器 `tools/gen_app_fonts.py` 产出（Pillow/FreeType
+直出 LVGL 格式并逐像素回读校验；依据
+`docs/reference/shinku-chen/lvgl-cjk-font-subsets.md` 的事故记录，新版
+Node.js 下的 `lv_font_conv` 不予信任）。重新生成：`python3
+tools/gen_app_fonts.py`；门禁以 `tests/test_font_coverage.py` 对照已提交
+清单校验。cmap 仅使用 `FORMAT0_TINY` + `SPARSE_TINY`。三号字体位图合计
+约 455 KB Flash；兜底链的运行时副本占用静态 RAM。
+
 ## 图片（images）
 
 可复用的源图与生成的显示资产放在 `images/`。
@@ -39,6 +57,33 @@
 - 与当前 BSP 音频路径匹配时优先采用 16 kHz、16 位单声道 PCM。
 - 嵌入音频前评估 Flash 与内部 RAM 成本；长录音应流式或分块。
 - 无再分发许可不提交媒体文件。
+
+### 拼音发音音频（分支 `feature/pinyin-cards`，位于 `audio/`）
+
+| 文件 | 内容与来源 |
+| --- | --- |
+| [`audio/pinyin_audio_ima.bin`](audio/pinyin_audio_ima.bin) | 255 条 clip：24 韵母×4 声 + 23 声母呼读 + 16 整体认读×4 声（去重后 174 个核心 id）+ 81 条例词池；IMA-ADPCM 4bit @16kHz 单声道（每条 4 字节头 + 连续 nibble 低半字节在前），偏移 4 字节对齐。 |
+| [`audio/pinyin_audio_manifest.json`](audio/pinyin_audio_manifest.json) | 每条 clip 的 id、来源（`voc:*` / `tts`）、TTS 文本、裁剪前后时长、音色与生成日期。 |
+
+`tools/gen_pinyin_audio.py` 按 clip 选用两类音源：
+
+1. **教学音频（核心音节，`voc:*`）**——23 声母呼读、96 韵母四声、64 整体
+   认读四声采用真人标准读音，抓取自拼音学习站
+   `https://123.5ikfc.com/pinyin`（63 基础 + 160 四声共 223 个 MP3，缓存在
+   `./tmp/pinyin_voc/`，经 ffmpeg 解码到 16kHz）。ü 行（ǖǘǚǜ、ǖn…、üē…）
+   该站有原生文件，此前的同音整体认读合成仅保留为 TTS 回退路径。
+   **许可说明**：抓取的教学音频自用可以，再分发或商用需获得来源许可。
+2. **Edge TTS（例词池，`edge:*`）**——读真实词语不是 TTS 短板，81 条例词
+   仍为合成，但音源从 VoxCPM 换到微软 Edge TTS（神经音色
+   `zh-CN-XiaoxiaoNeural`，**喂汉字**而非拼音串；`edge-tts` CLI ≥7.3.1，
+   CN 出口直连 WSS 为 403，生成器自动经 `proxychains` 重试）。原始 MP3
+   缓存 `./tmp/edge_cache/` 不入库。音色使用受微软神经声音条款约束，
+   商用应改用授权的 Azure Speech 资源。
+
+共用后处理：能量 VAD 静音裁剪（60ms 垫）→ 0.7 满刻度峰值归一化 →
+5/4/3.2kHz 自适应低通 → IMA-ADPCM。固件解码器（`main/adpcm_decoder.c`）
+与编码器由 `tests/adpcm_golden.h` 基准绑定；成品语料 SNR：最低 14.6 /
+均值 24.0 dB。
 
 ## 电池参数（battery）
 
