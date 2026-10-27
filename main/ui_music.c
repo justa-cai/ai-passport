@@ -6,9 +6,6 @@
 #include "ui_music.h"
 
 #include "bsp_battery.h"
-#include "esp_log.h"
-
-static const char *TAG = "ui_music";
 
 // 当前生效的缺省字体(接入中文字体前为 Montserrat 14)。
 static const lv_font_t *s_font = &lv_font_montserrat_14;

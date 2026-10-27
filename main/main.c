@@ -25,6 +25,7 @@
 #include "music_kuwo.h"
 #include "music_queue.h"
 #include "music_ui_nav.h"
+#include "music_wifi.h"
 #include "ui_music.h"
 
 #include <stdio.h>
@@ -170,8 +171,8 @@ static void switch_screen(music_screen_t scr) {
         lv_screen_load(s_settings_ui.screen);
         break;
     case MUS_SCR_PROVISION:
-        // 热点名在配网提交(music_wifi)接入前用占位;AP 起来后重建本屏。
-        if (!s_prov_scr) s_prov_scr = ui_music_provision_screen_create("AI-Passport");
+        // 热点名与 music_wifi 实际广播的 SSID 同源,指引与实物一致。
+        if (!s_prov_scr) s_prov_scr = ui_music_provision_screen_create(MUSIC_WIFI_AP_SSID);
         lv_screen_load(s_prov_scr);
         break;
     }
@@ -309,6 +310,31 @@ static void boot_timer_cb(lv_timer_t *timer) {
     switch_screen(MUS_SCR_HOME);
 }
 
+// ---- 网络状态 → UI ---------------------------------------------------------
+// net_task 上下文回调:状态栏图标 + 配网页自动进出(首次配网免手动进)。
+static void on_net_notify(uint32_t bits, music_ns_t state, void *user) {
+    (void)user;
+    if (!bsp_lvgl_lock(500)) {
+        ESP_LOGW(TAG, "LVGL 锁超时,丢弃一次网络状态更新");
+        return;
+    }
+    // -1 未联网(隐藏)/0 热点配网中(扳手)/1 已联网(WiFi)。
+    ui_music_status_set_net(state == MUS_NS_ONLINE ? 1
+                            : (state == MUS_NS_AP_WAIT ? 0 : -1));
+    // 热点起来且用户还停在浏览页 → 引导去配网页;连上了 → 从配网页回首页。
+    if ((bits & (MUS_NET_NOTIFY_AP_UP | MUS_NET_NOTIFY_BACK_TO_AP)) &&
+        (s_nav.screen == MUS_SCR_HOME || s_nav.screen == MUS_SCR_LIST ||
+         s_nav.screen == MUS_SCR_PLAY)) {
+        music_ui_nav_goto(&s_nav, MUS_SCR_PROVISION);
+        switch_screen(MUS_SCR_PROVISION);
+    }
+    if ((bits & MUS_NET_NOTIFY_ONLINE) && s_nav.screen == MUS_SCR_PROVISION) {
+        music_ui_nav_goto(&s_nav, MUS_SCR_HOME);
+        switch_screen(MUS_SCR_HOME);
+    }
+    bsp_lvgl_unlock();
+}
+
 void app_main(void) {
     ESP_LOGI(TAG, "musicdl 播放器启动");
     const uint32_t wake_causes = esp_sleep_get_wakeup_causes();
@@ -359,6 +385,10 @@ void app_main(void) {
         bsp_lvgl_unlock();
         s_input_ready = true;
     }
+
+    // 网络生命周期:有已存凭据直连,否则开热点等网页配网。
+    music_wifi_set_notify(on_net_notify, NULL);
+    music_wifi_start();
 
     ESP_LOGI(TAG, "就绪:Battery=%d Input=%d", battery_ok, input_err == ESP_OK);
 }
