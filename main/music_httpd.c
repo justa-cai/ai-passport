@@ -40,26 +40,30 @@ static int urldecode(char *s, size_t len) {
     return (int)out;
 }
 
-// 从 "ssid=..&pass=.." 里取解码后的字段值;找不到返回 NULL。
-// body 会被就地修改(解码),每字段只找一次。
-static char *form_field(char *body, const char *name, size_t *out_len) {
+// 从 "ssid=..&pass=.." 里取字段值并 %XX/'+' 解码到 out(NUL 结尾)。
+// body 只读不做任何就地修改;返回 false = 未找到/越界/非法编码。
+// *out_len 为解码后长度(调用方据此拒绝内部 NUL,即 %00)。
+static bool form_field(const char *body, const char *name,
+                       char *out, size_t out_cap, size_t *out_len) {
     const size_t nlen = strlen(name);
-    char *p = body;
+    const char *p = body;
     while (p) {
-        char *eq = strchr(p, '=');
-        if (!eq) return NULL;
-        char *amp = strchr(eq, '&');
+        const char *eq = strchr(p, '=');
+        if (!eq) return false;
+        const char *amp = strchr(eq, '&');
         const size_t vlen_raw = (size_t)((amp ? amp : eq + strlen(eq)) - (eq + 1));
         if ((size_t)(eq - p) == nlen && memcmp(p, name, nlen) == 0) {
-            const int vlen = urldecode(eq + 1, vlen_raw);
-            if (vlen < 0) return NULL;
-            if (amp) *amp = '\0';
+            if (vlen_raw >= out_cap) return false;
+            memcpy(out, eq + 1, vlen_raw);
+            const int vlen = urldecode(out, vlen_raw);
+            if (vlen < 0) return false;
+            out[vlen] = '\0';
             *out_len = (size_t)vlen;
-            return eq + 1;
+            return true;
         }
         p = amp ? amp + 1 : NULL;
     }
-    return NULL;
+    return false;
 }
 
 // ---- handlers -------------------------------------------------------------
@@ -113,17 +117,16 @@ static esp_err_t handler_wifi_post(httpd_req_t *req) {
     }
     body[got] = '\0';
 
+    char ssid[65];
+    char pass[65];
     size_t ssid_len = 0, pass_len = 0;
-    char *ssid = form_field(body, "ssid", &ssid_len);
-    char *pass = ssid ? form_field(body, "pass", &pass_len) : NULL;
     // 字段解码后要能按 C 字符串交给校验:内部再无 NUL。
-    if (!ssid || !pass || memchr(ssid, '\0', ssid_len) ||
-        memchr(pass, '\0', pass_len)) {
+    if (!form_field(body, "ssid", ssid, sizeof(ssid), &ssid_len) ||
+        !form_field(body, "pass", pass, sizeof(pass), &pass_len) ||
+        memchr(ssid, '\0', ssid_len) || memchr(pass, '\0', pass_len)) {
         httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "bad form");
         return ESP_FAIL;
     }
-    ssid[ssid_len] = '\0';
-    pass[pass_len] = '\0';
 
     if (!music_wifi_provision(ssid, pass)) {
         httpd_resp_set_type(req, "application/json");
