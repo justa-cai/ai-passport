@@ -35,6 +35,13 @@ run_static_checks() {
     "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Imain \
         tests/test_key_guard.c -o "${test_dir}/test_key_guard"
     "${test_dir}/test_key_guard"
+    # musicdl 播放器纯逻辑模块:源文件名与测试名一一对应。
+    for m in music_json music_kuwo music_queue music_player_sm music_net_sm music_ui_nav; do
+        "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Imain \
+            "tests/test_${m}.c" "main/${m}.c" \
+            -o "${test_dir}/test_${m}"
+        "${test_dir}/test_${m}"
+    done
     "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Icomponents/bsp/src \
         tests/test_bsp_display_rounding.c components/bsp/src/bsp_display_rounding.c \
         -o "${test_dir}/test_bsp_display_rounding"
