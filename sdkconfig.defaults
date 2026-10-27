@@ -31,14 +31,8 @@ CONFIG_LV_MEM_SIZE_KILOBYTES=24
 # --- 系统 ---
 CONFIG_FREERTOS_HZ=1000
 
-# --- Bluetooth LE / NimBLE ---
-# ESP32-C3 仅支持 BLE；示例只启用单连接 peripheral 所需的最小 host 配置。
-CONFIG_BT_ENABLED=y
-CONFIG_BT_NIMBLE_ENABLED=y
-CONFIG_BT_NIMBLE_ROLE_CENTRAL=n
-CONFIG_BT_NIMBLE_ROLE_PERIPHERAL=y
-CONFIG_BT_NIMBLE_ROLE_BROADCASTER=y
-CONFIG_BT_NIMBLE_ROLE_OBSERVER=n
-CONFIG_BT_NIMBLE_MAX_CONNECTIONS=1
-CONFIG_BT_NIMBLE_HOST_BASED_PRIVACY=n
-CONFIG_BT_NIMBLE_NVS_PERSIST=n
+# --- Bluetooth ---
+# musicdl 播放器不使用蓝牙(配网走 SoftAP 网页)。关闭 NimBLE 释放约 50KB
+# RAM 与 flash;基线 demo 的 BLE 页面代码保留在 main/demo_ble.c 供主机测试
+# 编译,不参与本应用固件构建。需要 BLE 的派生应用自行重新启用。
+CONFIG_BT_ENABLED=n
