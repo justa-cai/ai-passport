@@ -19,7 +19,7 @@ Store reusable font files and generated font sources in `fonts/`.
 
 | File | Contents | Use and source |
 | --- | --- | --- |
-| [`fonts/music_chars.txt`](fonts/music_chars.txt) | 4,000 characters: ASCII, GB2312 level-1 hanzi, CJK punctuation, fullwidth forms. | Input inventory for the music player's 16px UI font, and the coverage gate input checked by `tests/test_music_font_coverage.py`. Regenerate with the GB2312 walk documented in `tools/font_tools/gen_music_font.py`. |
+| [`fonts/music_chars.txt`](fonts/music_chars.txt) | 4,002 characters: ASCII, GB2312 level-1 hanzi, CJK punctuation, fullwidth forms, plus a few level-2 supplement characters from app strings (浏, 飙). | Input inventory for the music player's 16px UI font, and the coverage gate input checked by `tests/test_music_font_coverage.py`. Regenerate with the GB2312 walk documented in `tools/font_tools/gen_music_font.py`. |
 | `main/music_font_16.c` (generated, committed) | LVGL 9 native font: 16px, 4bpp, ~504KB bitmap, ASCII dense cmap + sparse CJK cmap. | Generated from `fonts/music_chars.txt` and Noto Sans SC Regular (SIL OFL 1.1; the font file itself is not committed). Fetch once into `tmp/fonts/`, then run `python3 tools/font_tools/gen_music_font.py --font tmp/fonts/NotoSansSC-Regular.otf --chars assets/fonts/music_chars.txt --out main/music_font_16.c`. The generator self-verifies every glyph against Pillow rasterization. |
 
 ## Images

@@ -187,7 +187,16 @@ bool music_ui_nav_key(music_ui_nav_t *nav, music_key_t key, music_kev_t kev,
             return false;
 
         case MUS_SCR_PROVISION:
-        default:
-            return false;  // 配网页按键不路由(进度由网络事件驱动)
+            // 配网页进度由网络事件驱动;OK 长按可返回首页(如配网暂不可用)。
+            if (kev == MUS_KEV_LONG && key == MUS_KEY_OK) {
+                if (act) {
+                    act->change_screen = true;
+                    act->new_screen = MUS_SCR_HOME;
+                }
+                nav->screen = MUS_SCR_HOME;
+                return true;
+            }
+            return false;
     }
+    return false;  // 未识别的屏幕值(防御,正常到不了这里)
 }

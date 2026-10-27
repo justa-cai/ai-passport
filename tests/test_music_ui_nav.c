@@ -84,10 +84,14 @@ int main(void) {
     assert(act.change_screen && act.new_screen == MUS_SCR_HOME);
     assert(nav.screen == MUS_SCR_HOME);
 
-    // ---- 配网页:不路由按键 ----
+    // ---- 配网页:进度由网络事件驱动,仅 OK 长按可返回首页 ----
     music_ui_nav_goto(&nav, MUS_SCR_PROVISION);
     assert(!music_ui_nav_key(&nav, MUS_KEY_OK, MUS_KEV_CLICK, &act));
     assert(!music_ui_nav_key(&nav, MUS_KEY_UP, MUS_KEV_LONG, &act));
+    assert(!music_ui_nav_key(&nav, MUS_KEY_DOWN, MUS_KEV_CLICK, &act));
+    assert(music_ui_nav_key(&nav, MUS_KEY_OK, MUS_KEV_LONG, &act));
+    assert(act.change_screen && act.new_screen == MUS_SCR_HOME);
+    assert(nav.screen == MUS_SCR_HOME);
 
     // ---- 行数参数钳制 ----
     music_ui_nav_init(&nav, 0);
