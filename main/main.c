@@ -62,10 +62,18 @@ static const chart_entry_t CHARTS[] = {
 #define SETTINGS_COUNT 3   // 音量 / 重新配网 / 关于
 #define VOLUME_DEFAULT 70
 
+// 歌曲列表的当前来源与抓取进度(榜单来自按键,搜索来自网页遥控)。
+typedef enum { LST_NONE = 0, LST_LOADING, LST_READY, LST_EMPTY, LST_FAIL } list_state_t;
+typedef enum { SRC_NONE = 0, SRC_CHART, SRC_SEARCH } list_src_t;
+static list_state_t s_list_state;
+static list_src_t s_list_src;
+static int32_t s_list_chart_id;
+
 static music_ui_nav_t s_nav;
 static music_queue_t s_queue;
 static uint8_t s_volume = VOLUME_DEFAULT;
 static bool s_paused;
+static music_screen_t s_cur_screen = MUS_SCR_HOME;  // switch_screen 的镜像
 
 // 屏幕(懒构建,构建后常驻复用;换屏只切 active)。
 static lv_obj_t *s_boot_scr;
@@ -113,8 +121,15 @@ static void draw_songs(void) {
                               song ? song->title : "", song ? song->artist : "",
                               s_nav.page_top + i == s_nav.cursor);
     }
-    ui_music_list_hint_set(&s_songs_ui,
-        s_queue.count == 0 ? "联网后进入榜单自动加载" : NULL);
+    const char *hint = NULL;
+    switch (s_list_state) {
+    case LST_LOADING: hint = "加载中..."; break;
+    case LST_EMPTY: hint = "没有找到歌曲"; break;
+    case LST_FAIL: hint = "加载失败,稍后重试"; break;
+    case LST_NONE: hint = "联网后进入榜单自动加载"; break;
+    default: break;  // LST_READY:不显示
+    }
+    ui_music_list_hint_set(&s_songs_ui, hint);
 }
 
 static void draw_settings(void) {
@@ -176,11 +191,31 @@ static void switch_screen(music_screen_t scr) {
         lv_screen_load(s_prov_scr);
         break;
     }
+    s_cur_screen = scr;
+}
+
+// 请求一个榜单(同一榜单已缓存则跳过;清空队列,列表页显示加载中)。
+static void browse_chart(int bang) {
+    if (s_list_src == SRC_CHART && s_list_chart_id == bang &&
+        s_list_state == LST_READY) {
+        return;
+    }
+    s_list_src = SRC_CHART;
+    s_list_chart_id = bang;
+    s_list_state = LST_LOADING;
+    music_queue_clear(&s_queue);
+    music_queue_set_current(&s_queue, -1);
+    music_wifi_request_chart(bang);
 }
 
 // ---- 意图分发(已持 LVGL 锁) ----------------------------------------------
 
 static void apply_action(const music_ui_action_t *act) {
+    // 首页 OK 进列表 = 选中榜单,先发抓取请求再切屏(cursor 此刻还是榜单下标)。
+    if (act->change_screen && act->new_screen == MUS_SCR_LIST &&
+        s_cur_screen == MUS_SCR_HOME && s_nav.cursor < CHART_COUNT) {
+        browse_chart(CHARTS[s_nav.cursor].bang);
+    }
     if (act->change_screen) switch_screen(act->new_screen);
 
     if (act->play_cursor) {
@@ -335,6 +370,33 @@ static void on_net_notify(uint32_t bits, music_ns_t state, void *user) {
     bsp_lvgl_unlock();
 }
 
+// net_task 上下文:榜单/搜索抓取完成 → 换掉歌曲队列并刷新列表页。
+// 只接受当前来源的结果(用户已切去别的榜单时,迟到的旧结果直接丢)。
+static void on_browse(const music_browse_result_t *r, void *user) {
+    (void)user;
+    const bool matches =
+        (r->chart_id > 0 && s_list_src == SRC_CHART && s_list_chart_id == r->chart_id) ||
+        (r->chart_id < 0 && s_list_src == SRC_SEARCH);
+    if (!matches) return;
+    if (!bsp_lvgl_lock(500)) {
+        // 锁超时:放弃本批数据,列表停留在加载中;用户重进榜单即可重试。
+        ESP_LOGW(TAG, "LVGL 锁超时,丢弃一批列表结果");
+        return;
+    }
+    music_queue_clear(&s_queue);
+    if (r->ok) {
+        for (uint8_t i = 0; i < r->count; i++) music_queue_push(&s_queue, &r->songs[i]);
+        s_list_state = r->count ? LST_READY : LST_EMPTY;
+    } else {
+        s_list_state = LST_FAIL;
+    }
+    if (s_nav.screen == MUS_SCR_LIST) {
+        music_ui_nav_set_list(&s_nav, music_queue_count(&s_queue));
+        draw_songs();
+    }
+    bsp_lvgl_unlock();
+}
+
 void app_main(void) {
     ESP_LOGI(TAG, "musicdl 播放器启动");
     const uint32_t wake_causes = esp_sleep_get_wakeup_causes();
@@ -388,6 +450,7 @@ void app_main(void) {
 
     // 网络生命周期:有已存凭据直连,否则开热点等网页配网。
     music_wifi_set_notify(on_net_notify, NULL);
+    music_wifi_set_browse(on_browse, NULL);
     music_wifi_start();
 
     ESP_LOGI(TAG, "就绪:Battery=%d Input=%d", battery_ok, input_err == ESP_OK);

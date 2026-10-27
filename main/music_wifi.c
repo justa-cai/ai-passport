@@ -22,11 +22,25 @@
 #include "nvs_flash.h"
 
 #include "music_httpd.h"
+#include "music_http.h"
+#include "music_json.h"
+#include "music_kuwo.h"
 
 static const char *TAG = "music_wifi";
 
+// 队列条目:状态机事件 / 浏览请求(榜单/搜索)两类,net_task 统一串行处理。
+typedef enum {
+    NEV_SM = 0,       // music_net_ev_t 事件
+    NEV_CHART,        // 抓取榜单
+    NEV_SEARCH,       // 抓取搜索结果
+} net_evt_kind_t;
+
 typedef struct {
+    net_evt_kind_t kind;
     music_net_ev_t ev;
+    int32_t chart_id;
+    char keyword[65];
+    // NEV_SM 的 PROVISIONED 事件载荷(net_task 里才写进状态机)。
     char ssid[MUSIC_NET_SSID_MAX];
     char pass[MUSIC_NET_PASS_MAX];
 } net_evt_t;
@@ -43,7 +57,7 @@ static bool s_ap_active;  // 当前是否处于 AP 模式(httpd 是否在跑)
 
 static void enqueue_ev(music_net_ev_t ev) {
     if (!s_evtq) return;
-    const net_evt_t item = { .ev = ev };
+    const net_evt_t item = { .kind = NEV_SM, .ev = ev };
     (void)xQueueSend(s_evtq, &item, 0);
 }
 
@@ -168,6 +182,75 @@ static void step_sm(music_net_ev_t ev, const net_evt_t *item) {
     }
 }
 
+// ---- 榜单/搜索抓取(net_task 内串行执行) -----------------------------------
+
+static music_browse_result_t s_result;
+static music_browse_fn s_browse_fn;
+static void *s_browse_user;
+
+typedef struct {
+    music_json_parser_t *p;
+    music_browse_result_t *r;
+} list_ctx_t;
+
+static void on_list_song(void *user, const music_song_t *song, uint8_t index) {
+    (void)index;
+    list_ctx_t *ctx = user;
+    if (ctx->r->count < MUSIC_QUEUE_CAP) ctx->r->songs[ctx->r->count++] = *song;
+}
+
+static bool on_list_chunk(const char *data, size_t len, void *user) {
+    music_json_parser_t *p = user;
+    (void)music_json_feed(p, data, len);
+    return !p->error && !p->done;  // 畸形或收满都提前停
+}
+
+// 抓一页列表(rn=30,SAX 收满 16 首即断开,不整包缓冲)。
+static void fetch_list(const char *url, music_json_list_t kind, int32_t chart_id,
+                       const char *keyword) {
+    memset(&s_result, 0, sizeof(s_result));
+    s_result.chart_id = chart_id;
+    strlcpy(s_result.keyword, keyword ? keyword : "", sizeof(s_result.keyword));
+    if (s_sm.state != MUS_NS_ONLINE) {
+        ESP_LOGW(TAG, "未联网,忽略浏览请求(%s)", url);
+    } else {
+        music_json_parser_t p;
+        list_ctx_t ctx = { .p = &p, .r = &s_result };
+        music_json_songs_init(&p, kind, MUSIC_QUEUE_CAP, on_list_song, &ctx);
+        const int status = music_http_get(url, on_list_chunk, &p);
+        s_result.ok = status == 200 && !p.error;
+        ESP_LOGI(TAG, "列表抓取完成:%s HTTP=%d 收到 %u 首",
+                 chart_id > 0 ? "榜单" : "搜索", status, s_result.count);
+    }
+    if (s_browse_fn) s_browse_fn(&s_result, s_browse_user);
+}
+
+// 抓取请求本身参数不合法(URL 构造失败):直接以失败结果回调。
+static void fetch_fail(int32_t chart_id, const char *keyword) {
+    memset(&s_result, 0, sizeof(s_result));
+    s_result.chart_id = chart_id;
+    strlcpy(s_result.keyword, keyword ? keyword : "", sizeof(s_result.keyword));
+    if (s_browse_fn) s_browse_fn(&s_result, s_browse_user);
+}
+
+static void handle_fetch(const net_evt_t *item) {
+    char url[MUSIC_KUWO_URL_MAX];
+    if (item->kind == NEV_CHART) {
+        if (music_kuwo_chart_url((music_kuwo_bang_t)item->chart_id, 0, 30,
+                                 url, sizeof(url)) == (size_t)-1) {
+            fetch_fail(item->chart_id, NULL);
+            return;
+        }
+        fetch_list(url, MUSIC_JSON_LIST_CHART, item->chart_id, NULL);
+    } else {
+        if (music_kuwo_search_url(item->keyword, 0, 30, url, sizeof(url)) == (size_t)-1) {
+            fetch_fail(-1, item->keyword);
+            return;
+        }
+        fetch_list(url, MUSIC_JSON_LIST_SEARCH, -1, item->keyword);
+    }
+}
+
 static void net_task(void *arg) {
     (void)arg;
     // BOOT 决定初始模式:有已存凭据直连 STA,否则开热点等配网。
@@ -175,7 +258,8 @@ static void net_task(void *arg) {
     for (;;) {
         net_evt_t item;
         if (xQueueReceive(s_evtq, &item, pdMS_TO_TICKS(1000)) == pdTRUE) {
-            step_sm(item.ev, &item);
+            if (item.kind == NEV_SM) step_sm(item.ev, &item);
+            else handle_fetch(&item);
         } else {
             step_sm(MUS_NET_EV_TICK, NULL);
         }
@@ -187,6 +271,27 @@ static void net_task(void *arg) {
 void music_wifi_set_notify(music_wifi_notify_fn fn, void *user) {
     s_notify_fn = fn;
     s_notify_user = user;
+}
+
+void music_wifi_set_browse(music_browse_fn fn, void *user) {
+    s_browse_fn = fn;
+    s_browse_user = user;
+}
+
+static bool enqueue_fetch(net_evt_kind_t kind, int32_t chart_id, const char *keyword) {
+    if (!s_evtq) return false;
+    net_evt_t e = { .kind = kind, .chart_id = chart_id };
+    if (keyword) strlcpy(e.keyword, keyword, sizeof(e.keyword));
+    return xQueueSend(s_evtq, &e, 0) == pdTRUE;
+}
+
+bool music_wifi_request_chart(int32_t bang_id) {
+    return enqueue_fetch(NEV_CHART, bang_id, NULL);
+}
+
+bool music_wifi_request_search(const char *keyword_utf8) {
+    if (!keyword_utf8 || !keyword_utf8[0] || strlen(keyword_utf8) > 64) return false;
+    return enqueue_fetch(NEV_SEARCH, -1, keyword_utf8);
 }
 
 bool music_wifi_provision(const char *ssid, const char *pass) {

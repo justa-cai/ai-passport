@@ -8,7 +8,10 @@ idf_component_register(
          "music_net_sm.c"
          "music_wifi.c"
          "music_httpd.c"
+         "music_http.c"
+         "music_json.c"
+         "music_kuwo.c"
     INCLUDE_DIRS "."
     REQUIRES bsp esp_event esp_hw_support esp_timer nvs_flash
-             esp_wifi esp_netif esp_http_server
+             esp_wifi esp_netif esp_http_server esp_http_client
 )
