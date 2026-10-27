@@ -4,7 +4,7 @@
 
 # 工程规范（Development）
 
-本目录存放 AI Passport 的工程开发规范和可复用工作流，按用途分组：AI 开发工作流（`ai-guide.md`）、工程约定（`engineering/`）、CI 文档（`ci/`）、发布/完成流程（`release/`）。
+本目录存放 AI Passport 的工程开发规范和可复用工作流，按用途分组：AI 开发工作流（`ai-guide.md`）、工程约定（`engineering/`）、应用笔记（`applications/`）、CI 文档（`ci/`）、发布/完成流程（`release/`）。
 
 ## 收录标准
 
@@ -29,6 +29,11 @@
 - [coding-conventions.zh_CN.md](engineering/coding-conventions.zh_CN.md)：代码约定（语言风格、复用、注释、测试同步、资源约束等），包含中文字体接入、空白/方框排查与显示验收。
 - [lvgl-chinese-fonts.zh_CN.md](engineering/lvgl-chinese-fonts.zh_CN.md)：CJK 配置、字体生成/链接、fallback 示例、缺字检查和故障排查的分步指南。
 - [wifi-provisioning.zh_CN.md](engineering/wifi-provisioning.zh_CN.md)：参考 BLUFI 分支实现蓝牙 Wi-Fi 配网，包含配套小程序名称及接入检查。
+- [softap-web-provisioning.zh_CN.md](engineering/softap-web-provisioning.zh_CN.md)：SoftAP + 网页配网，候选凭据测试成功才落盘，AP/STA 整服务切换。
+
+## 应用（applications）
+
+- [music-player.zh_CN.md](applications/music-player.zh_CN.md)：musicdl 派生在线音乐播放器 —— 界面、协议模块、流播管线与验证边界。
 
 ## CI（ci）
 

@@ -4,7 +4,7 @@
 
 # Development Guidelines
 
-This directory contains AI Passport engineering rules and reusable workflows, grouped by purpose: the AI-assisted development workflow (`ai-guide.md`), engineering conventions (`engineering/`), CI documents (`ci/`), and the release/completion flow (`release/`). Rules should identify their trigger, required action, prohibited action, validation, and exceptions. Hardware facts belong in `docs/hardware-design/`; automatable requirements must also be enforced by tooling or CI.
+This directory contains AI Passport engineering rules and reusable workflows, grouped by purpose: the AI-assisted development workflow (`ai-guide.md`), engineering conventions (`engineering/`), application notes (`applications/`), CI documents (`ci/`), and the release/completion flow (`release/`). Rules should identify their trigger, required action, prohibited action, validation, and exceptions. Hardware facts belong in `docs/hardware-design/`; automatable requirements must also be enforced by tooling or CI.
 
 ## AI workflow
 
@@ -20,6 +20,11 @@ This directory contains AI Passport engineering rules and reusable workflows, gr
 - [coding-conventions.md](engineering/coding-conventions.md): source-code and resource conventions, including Chinese font integration, blank/boxed text troubleshooting, and display acceptance.
 - [lvgl-chinese-fonts.md](engineering/lvgl-chinese-fonts.md): step-by-step CJK configuration, font generation/linking, fallback examples, glyph checks, and troubleshooting.
 - [wifi-provisioning.md](engineering/wifi-provisioning.md): Bluetooth-based Wi-Fi setup using the BLUFI reference branch, the companion mini program, and integration checks.
+- [softap-web-provisioning.md](engineering/softap-web-provisioning.md): SoftAP + web page provisioning with candidate-credential commit, and the AP/STA HTTP service swap.
+
+## Applications
+
+- [music-player.md](applications/music-player.md): the musicdl-derived online music player — screens, protocol modules, streaming pipeline, and validation scope.
 
 ## CI
 

@@ -145,6 +145,12 @@ recovery. They need only a host C compiler and Python, not ESP-IDF or downloaded
 Managed Components. They do not establish real timing, electrical behavior or
 device compatibility; the firmware gate compiles against the pinned dependencies.
 
+Application-level pure-logic modules follow the same pattern: the music
+player's protocol parsers, GBK conversion, queue, playback/network state
+machines, and screen-key routing are host-tested the same way, replaying
+real captured Kuwo responses, and a font-coverage test checks every
+non-ASCII string literal in `main/*.c` against the generated CJK font.
+
 To run an individual pure-logic test:
 
 ```bash
