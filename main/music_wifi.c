@@ -177,6 +177,10 @@ static void step_sm(music_net_ev_t ev, const net_evt_t *item) {
     }
     music_net_sm_step(&s_sm, ev, (uint32_t)(esp_timer_get_time() / 1000), &act);
     apply_action(&act);
+    // 上线才开遥控页:搜索要出外网,过早开放只会有失败请求。
+    if (s_sm.state == MUS_NS_ONLINE && before != MUS_NS_ONLINE) {
+        music_httpd_start_sta();
+    }
     if (s_notify_fn && (act.notify || s_sm.state != before)) {
         s_notify_fn(act.notify, s_sm.state, s_notify_user);
     }

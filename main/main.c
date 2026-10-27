@@ -22,6 +22,7 @@
 #include "key_guard.h"
 #include "lvgl.h"
 #include "music_fonts.h"
+#include "music_httpd.h"
 #include "music_kuwo.h"
 #include "music_player.h"
 #include "music_queue.h"
@@ -434,6 +435,147 @@ static void on_player_event(const music_player_status_t *st, void *user) {
     }
 }
 
+// ---- 网页遥控(STA 模式 httpd 上下文) ------------------------------------
+
+// 播放状态 → /api/status 用的短名(与遥控页 JS 约定)。
+static const char *ps_json_name(music_ps_t st) {
+    switch (st) {
+    case MUS_PS_RESOLVING: return "resolving";
+    case MUS_PS_BUFFERING: return "buffering";
+    case MUS_PS_PLAYING: return "playing";
+    case MUS_PS_PAUSED: return "paused";
+    default: return "idle";
+    }
+}
+
+// JSON 字符串转义(引号/反斜杠/控制字符;UTF-8 原样通过)。
+// 返回写入长度,恒以 NUL 收尾;缓冲不足时截断(容量按字段上限预留,
+// 正常不会发生)。
+static size_t json_escape(const char *in, char *out, size_t cap) {
+    size_t n = 0;
+    if (cap == 0) return 0;
+    for (const unsigned char *p = (const unsigned char *)in;
+         *p && n + 7 < cap; p++) {
+        if (*p == '"' || *p == '\\') {
+            out[n++] = '\\';
+            out[n++] = (char)*p;
+        } else if (*p < 0x20) {
+            n += (size_t)snprintf(out + n, cap - n, "\\u%04x", *p);
+        } else {
+            out[n++] = (char)*p;
+        }
+    }
+    out[n] = '\0';
+    return n;
+}
+
+// /api/status 正文:网络 + 播放器 + 整包队列(2s 轮询,手机点歌用)。
+// 曲名/歌手各 ≤64 字节,16 首加转义远小于 MUSIC_HTTPD_STATUS_CAP。
+static size_t remote_status_json(char *buf, size_t cap, void *user) {
+    (void)user;
+    music_player_status_t st;
+    music_player_get_status(&st);
+    if (!bsp_lvgl_lock(500)) {
+        return (size_t)snprintf(buf, cap, "{\"net\":\"busy\"}");
+    }
+    const music_song_t *cur = st.song.rid ? &st.song : music_queue_current(&s_queue);
+    size_t n = (size_t)snprintf(buf, cap,
+        "{\"net\":\"%s\",\"ps\":\"%s\",\"vol\":%u,\"idx\":%d,\"title\":\"",
+        music_wifi_state() == MUS_NS_ONLINE ? "online" : "offline",
+        ps_json_name(st.state), s_volume, (int)s_queue.current);
+    n += json_escape(cur ? cur->title : "", buf + n, cap - n);
+    n += (size_t)snprintf(buf + n, cap - n, "\",\"artist\":\"");
+    n += json_escape(cur ? cur->artist : "", buf + n, cap - n);
+    n += (size_t)snprintf(buf + n, cap - n,
+                          "\",\"pos\":%lu,\"dur\":%lu,\"list\":[",
+                          (unsigned long)st.cur_s,
+                          (unsigned long)(cur ? cur->duration_s : st.total_s));
+    const uint8_t count = music_queue_count(&s_queue);
+    for (uint8_t i = 0; i < count && n + 8 < cap; i++) {
+        const music_song_t *song = music_queue_at(&s_queue, i);
+        if (i) buf[n++] = ',';
+        buf[n++] = '[';
+        buf[n++] = '"';
+        n += json_escape(song ? song->title : "", buf + n, cap - n);
+        n += (size_t)snprintf(buf + n, cap - n, "\",\"");
+        n += json_escape(song ? song->artist : "", buf + n, cap - n);
+        n += (size_t)snprintf(buf + n, cap - n, "\"]");
+    }
+    if (n + 2 < cap) {
+        buf[n++] = ']';
+        buf[n++] = '}';
+        buf[n] = '\0';
+    }
+    bsp_lvgl_unlock();
+    return n;
+}
+
+// POST /api/cmd 与 GET /api/search 的统一入口:与按键共用同一套共享状态
+// (队列/音量/列表来源),全部在 LVGL 锁内改动,与 input_task 互斥。
+static bool remote_cmd(const char *cmd, int value, const char *arg, void *user) {
+    (void)user;
+    bool ok = false;
+    if (!cmd || !bsp_lvgl_lock(800)) return false;
+
+    if (strcmp(cmd, "play") == 0) {
+        const music_song_t *song =
+            value >= 0 && value < music_queue_count(&s_queue)
+                ? music_queue_at(&s_queue, (uint8_t)value) : NULL;
+        if (song) {
+            music_queue_set_current(&s_queue, (int8_t)value);
+            music_player_play(song);
+            ok = true;
+        }
+    } else if (strcmp(cmd, "pause") == 0) {
+        music_player_toggle_pause();
+        ok = true;
+    } else if (strcmp(cmd, "next") == 0 || strcmp(cmd, "prev") == 0) {
+        const int8_t idx = cmd[0] == 'n' ? music_queue_next_index(&s_queue)
+                                         : music_queue_prev_index(&s_queue);
+        if (idx >= 0) {
+            music_queue_set_current(&s_queue, idx);
+            music_player_play(music_queue_at(&s_queue, (uint8_t)idx));
+            ok = true;
+        }
+    } else if (strcmp(cmd, "vol") == 0) {
+        if (value >= 0 && value <= 100) {
+            s_volume = (uint8_t)value;
+            music_player_set_volume(s_volume);
+            ok = true;
+        }
+    } else if (strcmp(cmd, "chart") == 0) {
+        // 只接受已知榜单 id;拉取结果照常走 on_browse 回队列与列表页。
+        for (uint8_t i = 0; i < CHART_COUNT; i++) {
+            if (CHARTS[i].bang == value) {
+                browse_chart(value);
+                ok = true;
+                break;
+            }
+        }
+    } else if (strcmp(cmd, "search") == 0) {
+        // 手机搜索接管设备队列(列表来源切到搜索,结果回来刷新列表页)。
+        if (arg && arg[0]) {
+            s_list_src = SRC_SEARCH;
+            s_list_chart_id = 0;
+            s_list_state = LST_LOADING;
+            music_queue_clear(&s_queue);
+            music_queue_set_current(&s_queue, -1);
+            ok = music_wifi_request_search(arg);
+            if (!ok) s_list_state = LST_FAIL;
+        }
+    }
+
+    // 设备侧可见面同步:播放页跟播放/音量,列表页跟来源切换。
+    if (ok && s_cur_screen == MUS_SCR_PLAY) play_page_refresh();
+    if (ok && s_nav.screen == MUS_SCR_LIST &&
+        (strcmp(cmd, "chart") == 0 || strcmp(cmd, "search") == 0)) {
+        music_ui_nav_set_list(&s_nav, music_queue_count(&s_queue));
+        draw_songs();
+    }
+    bsp_lvgl_unlock();
+    return ok;
+}
+
 void app_main(void) {
     ESP_LOGI(TAG, "musicdl 播放器启动");
     const uint32_t wake_causes = esp_sleep_get_wakeup_causes();
@@ -489,6 +631,9 @@ void app_main(void) {
     music_wifi_set_notify(on_net_notify, NULL);
     music_wifi_set_browse(on_browse, NULL);
     music_wifi_start();
+
+    // 网页遥控:上线后 httpd 换遥控页,命令/状态从这里进出。
+    music_httpd_set_remote(remote_cmd, remote_status_json, NULL);
 
     // 播放管线:懒初始化音频,首次播放才占用解码器与 I2S 内存。
     music_player_set_event_cb(on_player_event, NULL);
