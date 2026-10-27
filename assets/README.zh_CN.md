@@ -15,6 +15,11 @@
 - 添加字库前评估 Flash 与内部 RAM 影响；ESP32-C3 无 PSRAM。
 - 不提交许可不允许分发的字库。
 
+| 文件 | 内容 | 用途与来源 |
+| --- | --- | --- |
+| [`fonts/music_chars.txt`](fonts/music_chars.txt) | 4000 字符:ASCII、GB2312 一级汉字、中文标点、全角字符。 | musicdl 播放器 16px 界面字体的生成清单,同时是 `tests/test_music_font_coverage.py` 覆盖门禁的输入。再生成方式见 `tools/font_tools/gen_music_font.py` 内的 GB2312 遍历说明。 |
+| `main/music_font_16.c`(生成物,已提交) | LVGL 9 原生字体:16px、4bpp、位图约 504KB,ASCII 密集 cmap + CJK 稀疏 cmap。 | 由 `fonts/music_chars.txt` 与 Noto Sans SC Regular(SIL OFL 1.1,字体文件本身不入库)生成:先取字体到 `tmp/fonts/`,再执行 `python3 tools/font_tools/gen_music_font.py --font tmp/fonts/NotoSansSC-Regular.otf --chars assets/fonts/music_chars.txt --out main/music_font_16.c`。生成器内置与 Pillow 光栅逐像素比对的自动校验。 |
+
 ## 图片（images）
 
 可复用的源图与生成的显示资产放在 `images/`。
