@@ -23,6 +23,7 @@
 #include "lvgl.h"
 #include "music_fonts.h"
 #include "music_kuwo.h"
+#include "music_player.h"
 #include "music_queue.h"
 #include "music_ui_nav.h"
 #include "music_wifi.h"
@@ -72,7 +73,6 @@ static int32_t s_list_chart_id;
 static music_ui_nav_t s_nav;
 static music_queue_t s_queue;
 static uint8_t s_volume = VOLUME_DEFAULT;
-static bool s_paused;
 static music_screen_t s_cur_screen = MUS_SCR_HOME;  // switch_screen 的镜像
 
 // 屏幕(懒构建,构建后常驻复用;换屏只切 active)。
@@ -149,12 +149,28 @@ static void draw_settings(void) {
 
 // ---- 播放页刷新 -----------------------------------------------------------
 
+// 播放状态 → 状态行文字。
+static const char *play_state_text(music_ps_t st) {
+    switch (st) {
+    case MUS_PS_RESOLVING: return "解析中";
+    case MUS_PS_BUFFERING: return "缓冲中";
+    case MUS_PS_PLAYING: return "播放中";
+    case MUS_PS_PAUSED: return "已暂停";
+    default: return "未在播放";
+    }
+}
+
 static void play_page_refresh(void) {
-    const music_song_t *song = music_queue_current(&s_queue);
+    music_player_status_t st;
+    music_player_get_status(&st);
+    const music_song_t *song = st.song.rid ? &st.song : NULL;
+    if (!song) song = music_queue_current(&s_queue);
     ui_music_play_song_set(&s_play_ui, song);
-    ui_music_play_state_set(&s_play_ui, song ? (s_paused ? "已暂停" : "待联网") : "未在播放");
+    ui_music_play_state_set(&s_play_ui, play_state_text(st.state));
+    ui_music_play_progress_set(&s_play_ui, st.progress_pct, st.cur_s,
+                               song ? song->duration_s : 0);
     ui_music_play_volume_set(&s_play_ui, s_volume);
-    ui_music_play_eq_set(&s_play_ui, false);
+    ui_music_play_eq_set(&s_play_ui, st.state == MUS_PS_PLAYING);
 }
 
 // ---- 换屏 -----------------------------------------------------------------
@@ -219,8 +235,11 @@ static void apply_action(const music_ui_action_t *act) {
     if (act->change_screen) switch_screen(act->new_screen);
 
     if (act->play_cursor) {
-        music_queue_set_current(&s_queue, (int8_t)s_nav.cursor);
-        s_paused = false;
+        const music_song_t *song = music_queue_at(&s_queue, s_nav.cursor);
+        if (song) {
+            music_queue_set_current(&s_queue, (int8_t)s_nav.cursor);
+            music_player_play(song);
+        }
         switch_screen(MUS_SCR_PLAY);
     }
 
@@ -233,10 +252,8 @@ static void apply_action(const music_ui_action_t *act) {
         }
     }
 
-    if (act->toggle_pause && music_queue_current(&s_queue)) {
-        s_paused = !s_paused;
-        ui_music_play_state_set(&s_play_ui, s_paused ? "已暂停" : "待联网");
-        ui_music_play_eq_set(&s_play_ui, false);
+    if (act->toggle_pause) {
+        music_player_toggle_pause();
     }
 
     if (act->next_track || act->prev_track) {
@@ -244,7 +261,7 @@ static void apply_action(const music_ui_action_t *act) {
                                            : music_queue_prev_index(&s_queue);
         if (idx >= 0) {
             music_queue_set_current(&s_queue, idx);
-            s_paused = false;
+            music_player_play(music_queue_at(&s_queue, (uint8_t)idx));
             play_page_refresh();
         }
     }
@@ -254,6 +271,7 @@ static void apply_action(const music_ui_action_t *act) {
         if (v < 0) v = 0;
         if (v > 100) v = 100;
         s_volume = (uint8_t)v;
+        music_player_set_volume(s_volume);
         ui_music_play_volume_set(&s_play_ui, s_volume);
     }
 
@@ -397,6 +415,25 @@ static void on_browse(const music_browse_result_t *r, void *user) {
     bsp_lvgl_unlock();
 }
 
+// player_task 上下文:进度/状态每秒推送;track_ended(播完或连败跳曲)
+// 时自动走下一首,队尾停止。
+static void on_player_event(const music_player_status_t *st, void *user) {
+    (void)user;
+    if (st->track_ended) {
+        const int8_t next = music_queue_next_index(&s_queue);
+        if (next >= 0) {
+            music_queue_set_current(&s_queue, next);
+            music_player_play(music_queue_at(&s_queue, (uint8_t)next));
+        }
+    }
+    if (bsp_lvgl_lock(500)) {
+        play_page_refresh();
+        bsp_lvgl_unlock();
+    } else {
+        ESP_LOGW(TAG, "LVGL 锁超时,丢弃一次播放进度更新");
+    }
+}
+
 void app_main(void) {
     ESP_LOGI(TAG, "musicdl 播放器启动");
     const uint32_t wake_causes = esp_sleep_get_wakeup_causes();
@@ -452,6 +489,11 @@ void app_main(void) {
     music_wifi_set_notify(on_net_notify, NULL);
     music_wifi_set_browse(on_browse, NULL);
     music_wifi_start();
+
+    // 播放管线:懒初始化音频,首次播放才占用解码器与 I2S 内存。
+    music_player_set_event_cb(on_player_event, NULL);
+    music_player_set_volume(s_volume);
+    music_player_start();
 
     ESP_LOGI(TAG, "就绪:Battery=%d Input=%d", battery_ok, input_err == ESP_OK);
 }

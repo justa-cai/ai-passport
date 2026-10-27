@@ -11,7 +11,11 @@ idf_component_register(
          "music_http.c"
          "music_json.c"
          "music_kuwo.c"
+         "music_player_sm.c"
+         "music_player.c"
+         "music_decoder.c"
     INCLUDE_DIRS "."
     REQUIRES bsp esp_event esp_hw_support esp_timer nvs_flash
              esp_wifi esp_netif esp_http_server esp_http_client
+             espressif__esp_audio_codec
 )
